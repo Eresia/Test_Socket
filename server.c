@@ -35,10 +35,14 @@ int createUDPServer(int port){
 
 		buffer[n] = '\0';
 
+		printf ("Receive %s\n", buffer);
+
 		if(sendto(sock, buffer, strlen(buffer), 0, (SOCKADDR *)&from, fromsize) < 0)
 		{
 		    return -9;
 		}
+
+		printf("Send : %s", buffer);
 	}
 
 
