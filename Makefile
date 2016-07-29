@@ -1,6 +1,6 @@
 CC=gcc
 CFLAGS=-Wall -g
-LDFLAGS=
+LDFLAGS=-lpthread
 EXEC=createUDP.out
 
 all: $(EXEC)

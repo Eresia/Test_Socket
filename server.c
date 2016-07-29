@@ -42,7 +42,7 @@ int createUDPServer(int port){
 		    return -9;
 		}
 
-		printf("Send : %s", buffer);
+		printf("Send : %s\n\n", buffer);
 	}
 
 

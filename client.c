@@ -9,8 +9,9 @@ int connectToUDPServer(char* ip, int port){
 	int tosize = sizeof to;
 
 	char* buffer = malloc(100*sizeof(char));
-	int n;
 	int count = 0;
+	pthread_t thread;
+	Informations info;
 
 	if(sock == INVALID_SOCKET)
 	{
@@ -28,6 +29,12 @@ int connectToUDPServer(char* ip, int port){
 	to.sin_port = htons(port);
 	to.sin_family = AF_INET;
 
+	info.socket = sock;
+	info.to = to;
+	info.tosize = tosize;
+
+	thread = pthread_create(&thread, NULL, receiveMsg, &info);
+
 	while(1){
 		sprintf(buffer, "%d", count);
 
@@ -36,21 +43,42 @@ int connectToUDPServer(char* ip, int port){
 			return -8;
 		}
 
-		printf("Send : %s", buffer);
-
-		if((n = recvfrom(sock, buffer, sizeof buffer - 1, 0, (SOCKADDR *)&to, (socklen_t*) &tosize)) < 0)
-		{
-			return -9;
-		}
-
-		buffer[n] = '\0';
-
-		printf("Receive %s\n", buffer);
+		printf("Send : %s\n", buffer);
 
 		count++;
 
 		sleep(1);
 	}
 
+	pthread_join(thread, NULL);
+
 	return 0;
+}
+
+void* receiveMsg(void* info){
+
+	Informations* informations = (Informations*) info;
+	int sock = informations->socket;
+	SOCKADDR_IN to = informations->to;
+	int tosize = informations->tosize;
+
+	int n;
+	char* buffer = calloc(100, sizeof(char));
+
+	int* err = malloc(sizeof(int));
+	*err = 0;
+
+	while(1){
+		if((n = recvfrom(sock, buffer, sizeof buffer - 1, 0, (SOCKADDR *)&to, (socklen_t*) &tosize)) < 0)
+		{
+			*err = -9;
+			pthread_exit(err);
+		}
+
+		buffer[n] = '\0';
+
+		printf("Receive %s\n\n", buffer);
+	}
+
+	pthread_exit(err);
 }
