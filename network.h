@@ -11,4 +11,8 @@
 #define INVALID_SOCKET -1
 #define SOCKET_ERROR -1
 
+typedef struct sockaddr_in SOCKADDR_IN;
+typedef struct sockaddr SOCKADDR;
+typedef struct in_addr IN_ADDR;
+
 #endif
