@@ -2,7 +2,7 @@ CC=ldc2
 binFolder=bin
 CFLAGS=-od $(binFolder)
 LDFLAGS=
-EXEC=createUDP.out
+EXEC=testTCP.out
 
 all: $(EXEC)
 
