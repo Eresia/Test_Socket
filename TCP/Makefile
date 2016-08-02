@@ -2,21 +2,17 @@ CC=ldc2
 binFolder=bin
 CFLAGS=-od $(binFolder)
 LDFLAGS=
+SRC= $(wildcard *.d)
+OBJ= $(SRC:%.d=$(binFolder)/%.o)
 EXEC=testTCP.out
 
 all: $(EXEC)
 
-$(EXEC): $(binFolder)/main.o $(binFolder)/client.o $(binFolder)/server.o
+$(EXEC): $(OBJ)
 	$(CC) -of $(EXEC) $^ $(LDFLAGS)
 
-$(binFolder)/main.o: main.d
-	$(CC) $(CFLAGS) -c main.d
-
-$(binFolder)/client.o: client.d
-	$(CC) $(CFLAGS) -c client.d
-
-$(binFolder)/server.o: server.d
-	$(CC) $(CFLAGS) -c server.d
+$(binFolder)/%.o: %.d
+	$(CC) $(CFLAGS) -c $<
 
 clean:
 	rm -rf $(binFolder)

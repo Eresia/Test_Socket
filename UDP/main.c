@@ -46,5 +46,5 @@ int main(int argc, char** argv){
 }
 
 char* help(){
-	return "Usage : \ncreateUDP.out [-c ip port] [-s port]\n-c : Create client\n-s : Create Server";
+	return "Usage : \ntestUDP.out [-c ip port] [-s port]\n-c : Create client\n-s : Create Server";
 }

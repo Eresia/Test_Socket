@@ -1,7 +1,7 @@
 CC=gcc
 CFLAGS=-Wall -g
 LDFLAGS=-lpthread
-EXEC=testUDP.out
+EXEC=createUDP.out
 
 all: $(EXEC)
 
