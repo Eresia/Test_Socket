@@ -70,5 +70,5 @@ int main(string[] args) {
 
 /****/
 string help(){
-	return "Usage : \ntestTCP.out [-c ip port] [-s port]\n-c : Create client\n-s : Create Server";
+	return "Usage : \ntestTCP_IPV6.out [-c ip port] [-s port]\n-c : Create client\n-s : Create Server";
 }
